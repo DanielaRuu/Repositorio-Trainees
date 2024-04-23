@@ -55,13 +55,8 @@ public class BankAccountsController implements IApiDocBankAccounts {
     }*/
 
     @Override
-    public ResponseEntity<List<BankAccountsDTO>> getAll(@RequestParam(name = "status", required = false) String status) {
-        if ("ACTIVO".equals(status)) {
-            // Si se proporciona el parámetro de estado ACTIVO, llamar al servicio para obtener cuentas bancarias filtradas
+    public ResponseEntity<List<BankAccountsDTO>> getAll(@PathVariable("status") String status) {
             return bankAccountsService.listByStatus(status);
-        } else {
-            // Si no se proporciona el parámetro de estado o es otro valor, llamar al servicio para obtener solo las cuentas bancarias con estado ACTIVO
-            return bankAccountsService.listByStatus("ACTIVO"); }
 
     }
 

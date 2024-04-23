@@ -38,8 +38,8 @@ public interface IApiDocBankAccounts {
     @GetMapping("/bankAccounts")
     ResponseEntity<List<BankAccountsDTO>> getAll();
 
-    @GetMapping("/bankAccounts?status=ACTIVO")
-    ResponseEntity<List<BankAccountsDTO>> getAll(@RequestParam(name = "status", required = false) String status);
+    @GetMapping("/bankAccounts/status/{status}") //se agrega "/status" para diferenciar endpoints
+    ResponseEntity<List<BankAccountsDTO>> getAll(@PathVariable("status") String status);
 
     @GetMapping("/bankAccounts/{accountId}")
     ResponseEntity<BankAccountsDTO> getById(@PathVariable("accountId") Integer accountId);

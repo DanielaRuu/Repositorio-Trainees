@@ -81,9 +81,9 @@ public class BankAccountsServiceImpl implements IBankAccountsService{
     public ResponseEntity<List<BankAccountsDTO>> listByStatus(String status) {
         List<BankAccountsDTO> bankAccountsDTOList = new ArrayList<>();
 
-        if ("ACTIVO".equals(status)) {
+        if ("ACTIVA".equals(status)) {
             // Obtener todas las cuentas bancarias con estado ACTIVO
-            List<BankAccounts> bankAccountsList = repository.findByStatus("ACTIVO");
+            List<BankAccounts> bankAccountsList = repository.findByStatus("ACTIVA");
 
             // Mapear las cuentas bancarias a DTOs
             bankAccountsDTOList = bankAccountsList
@@ -105,7 +105,7 @@ public class BankAccountsServiceImpl implements IBankAccountsService{
         Optional<BankAccounts> optionalBankAccount = repository.findById(accountId);
         if (optionalBankAccount.isPresent()) {
             BankAccounts bankAccount = optionalBankAccount.get();
-            if (bankAccount.getStatus().equals("ACTIVO")) {
+            if (bankAccount.getStatus().equals("ACTIVA")) {
                 BankAccountsDTO bankAccountDTO = modelMapper.map(bankAccount, BankAccountsDTO.class);
                 return ResponseEntity.ok(bankAccountDTO);
             } else {
