@@ -1,0 +1,100 @@
+openapi: 3.0.0
+info:
+  title: API de Cuentas Bancarias
+  version: 1.0.0
+  contact:
+    name: Daniela Salmeron Ruiz
+    email: dsruiz11@gmail.com 
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  description: API para consultar informacion de las cuentas de BancoMex
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /bancoMexCuentas:
+    get:
+      tags:
+      - BancoMex Cuentas
+      summary: index
+      description: Obtener la lista de cuentas bancarias con status activo
+      operationId: index
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BankAccount'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+  /bancoMexCuentas/{Id}:
+    get:
+      tags:
+        - BancoMex filtrar por Id
+      summary: show
+      description: Consultar información de una cuenta bancaria con estatus activo, mediante su ID
+      operationId: show
+      parameters:
+      - name: Id
+        in: path
+        description: ID unico de la cuenta bancaria
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BankAccount'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not found
+        '500':
+          description: Internal Server Error
+components:
+  schemas:
+    BankAccount:
+      type: object
+      properties:
+        id:
+          description: Id de la cuenta
+          type: integer
+          example: 1
+        account_type:
+          description: tipo de cuenta
+          type: string
+          example: cuenta de ahorros
+        holder_name:
+          description: Nombre completo del titular de cuenta
+          type: string
+          example: Daniela Ruiz
+        status:
+          description: Estado actual de la cuenta
+          type: string
+          example: activa
+        creditable:
+          description: Es cuenta de credito
+          type: boolean
+          example: false
+        debitable:
+          description: es cuenta de debito
+          type: boolean
+          example: true
+        version:
+          description: version de la cuenta?
+          type: string
+          example: GOLD
+        bank_name:
+          description: Nombre de la institucion financiera
+          type: string
+          example: BancoMex
